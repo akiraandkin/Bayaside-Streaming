@@ -24,424 +24,165 @@
   --mont:'Montserrat',sans-serif;
   --mono:'Space Mono',monospace;
 }
-
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--white);font-family:var(--mont);overflow-x:hidden;cursor:default}
-
-/* NOISE GRAIN */
-body::after{
-  content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:9998;opacity:.4;
-}
-
-/* SCROLLBAR */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.4;}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--red)}
 
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:16px 40px;
-  background:linear-gradient(to bottom,rgba(6,4,10,.95) 60%,transparent);
-}
-.nav-logo{
-  font-family:var(--bebas);font-size:24px;letter-spacing:.12em;
-  background:linear-gradient(90deg,var(--red2),var(--blue2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:linear-gradient(to bottom,rgba(6,4,10,.95) 60%,transparent);}
+.nav-logo{font-family:var(--bebas);font-size:24px;letter-spacing:.12em;background:linear-gradient(90deg,var(--red2),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{
-  font-family:var(--mono);font-size:10px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;
-}
+.nav-links a{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
 .nav-links a:hover{color:var(--white)}
 
-/* ── HERO ── */
-.hero{
-  position:relative;min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:80px 24px 60px;overflow:hidden;
-}
-
-/* Animated gradient bg */
-.hero-bg{
-  position:absolute;inset:0;z-index:0;
-  background:radial-gradient(ellipse 60% 60% at 20% 50%,rgba(224,26,46,.22) 0%,transparent 60%),
-             radial-gradient(ellipse 60% 60% at 80% 50%,rgba(26,58,224,.22) 0%,transparent 60%),
-             radial-gradient(ellipse 40% 40% at 50% 100%,rgba(100,20,140,.15) 0%,transparent 60%),
-             #06040a;
-}
-
-/* Animated light streaks like MANASU cover */
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 60px;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 60% 60% at 20% 50%,rgba(224,26,46,.22) 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 80% 50%,rgba(26,58,224,.22) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 50% 100%,rgba(100,20,140,.15) 0%,transparent 60%),#06040a;}
 .streaks{position:absolute;inset:0;z-index:1;overflow:hidden}
-.streak{
-  position:absolute;width:1.5px;top:-20%;bottom:-20%;
-  animation:fall linear infinite;
-}
-@keyframes fall{
-  0%{transform:translateY(-100%)}
-  100%{transform:translateY(200%)}
-}
-
+.streak{position:absolute;width:1.5px;top:-20%;bottom:-20%;animation:fall linear infinite;}
+@keyframes fall{0%{transform:translateY(-100%)}100%{transform:translateY(200%)}}
 .hero-content{position:relative;z-index:2;max-width:700px}
-
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--mono);font-size:9px;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--red2);border:1px solid rgba(224,26,46,.3);
-  padding:6px 14px;margin-bottom:32px;
-}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--red2);border:1px solid rgba(224,26,46,.3);padding:6px 14px;margin-bottom:32px;}
 .badge-dot{width:6px;height:6px;background:var(--red2);border-radius:50%;animation:blink 1.5s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-
-.hero-title{
-  font-family:var(--bebas);
-  font-size:clamp(72px,14vw,140px);
-  line-height:.85;letter-spacing:.04em;
-  margin-bottom:8px;
-}
-.title-akira{
-  display:block;
-  background:linear-gradient(90deg,var(--white) 30%,var(--red2) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.title-amp{
-  display:inline;
-  background:linear-gradient(90deg,var(--red2),var(--blue2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  font-style:italic;
-}
-.title-kin{
-  display:block;
-  background:linear-gradient(90deg,var(--blue2) 0%,var(--white) 70%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-
-.hero-tagline{
-  font-family:var(--mont);font-size:13px;font-weight:300;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:var(--muted);margin:20px 0 40px;
-}
-
+.hero-title{font-family:var(--bebas);font-size:clamp(72px,14vw,140px);line-height:.85;letter-spacing:.04em;margin-bottom:8px;}
+.title-akira{display:block;background:linear-gradient(90deg,var(--white) 30%,var(--red2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.title-amp{display:inline;background:linear-gradient(90deg,var(--red2),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;}
+.title-kin{display:block;background:linear-gradient(90deg,var(--blue2) 0%,var(--white) 70%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-tagline{font-family:var(--mont);font-size:13px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:20px 0 40px;}
 .hero-stats{display:flex;gap:48px;justify-content:center;margin-bottom:48px}
-.stat-num{
-  font-family:var(--bebas);font-size:40px;letter-spacing:.06em;
-  background:linear-gradient(135deg,var(--red2),var(--blue2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
+.stat-num{font-family:var(--bebas);font-size:40px;letter-spacing:.06em;background:linear-gradient(135deg,var(--red2),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .stat-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:2px}
-
 .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.btn-red{
-  padding:14px 32px;
-  background:linear-gradient(135deg,var(--red),#a00);
-  color:var(--white);font-family:var(--mono);font-size:10px;
-  letter-spacing:.18em;text-transform:uppercase;border:none;
-  cursor:pointer;text-decoration:none;
-  box-shadow:0 0 24px var(--redglow);
-  transition:box-shadow .25s,transform .15s;
-  display:inline-flex;align-items:center;gap:8px;
-}
+.btn-red{padding:14px 32px;background:linear-gradient(135deg,var(--red),#a00);color:var(--white);font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;box-shadow:0 0 24px var(--redglow);transition:box-shadow .25s,transform .15s;display:inline-flex;align-items:center;gap:8px;}
 .btn-red:hover{box-shadow:0 0 40px var(--redglow);transform:translateY(-2px)}
-.btn-blue{
-  padding:14px 32px;background:transparent;color:var(--white);
-  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  border:1px solid rgba(51,85,255,.4);cursor:pointer;text-decoration:none;
-  box-shadow:0 0 16px var(--blueglow);
-  transition:box-shadow .25s,transform .15s,border-color .2s;
-  display:inline-flex;align-items:center;gap:8px;
-}
+.btn-blue{padding:14px 32px;background:transparent;color:var(--white);font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(51,85,255,.4);cursor:pointer;text-decoration:none;box-shadow:0 0 16px var(--blueglow);transition:box-shadow .25s,transform .15s,border-color .2s;display:inline-flex;align-items:center;gap:8px;}
 .btn-blue:hover{border-color:var(--blue2);box-shadow:0 0 32px var(--blueglow);transform:translateY(-2px)}
 
-/* ── NOW PLAYING CARD ── */
-.now-playing-bar{
-  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:400;
-  display:flex;align-items:center;gap:14px;
-  background:rgba(6,4,10,.92);border:1px solid rgba(224,26,46,.3);
-  padding:10px 20px;backdrop-filter:blur(12px);
-  box-shadow:0 0 32px rgba(224,26,46,.2),0 0 32px rgba(26,58,224,.15);
-  max-width:500px;width:90%;
-}
-.np-cover{
-  width:44px;height:44px;flex-shrink:0;object-fit:cover;border:1px solid rgba(224,26,46,.4);
-}
+/* NOW PLAYING BAR */
+.now-playing-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:400;display:flex;align-items:center;gap:14px;background:rgba(6,4,10,.92);border:1px solid rgba(224,26,46,.3);padding:10px 20px;backdrop-filter:blur(12px);box-shadow:0 0 32px rgba(224,26,46,.2),0 0 32px rgba(26,58,224,.15);max-width:500px;width:90%;}
+.np-cover{width:44px;height:44px;flex-shrink:0;object-fit:cover;border:1px solid rgba(224,26,46,.4);}
 .np-info{flex:1;min-width:0}
 .np-label{font-family:var(--mono);font-size:8px;letter-spacing:.2em;color:var(--red2);text-transform:uppercase}
 .np-title{font-family:var(--bebas);font-size:18px;letter-spacing:.06em;color:var(--white);line-height:1;margin:2px 0}
 .np-artist{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--muted)}
 .np-bars{display:flex;align-items:flex-end;gap:2px;height:20px;flex-shrink:0}
 .np-bar{width:3px;background:var(--red2);border-radius:2px;animation:eq .8s ease-in-out infinite alternate}
-.np-bar:nth-child(1){animation-delay:0s}
-.np-bar:nth-child(2){animation-delay:.1s}
-.np-bar:nth-child(3){animation-delay:.2s}
-.np-bar:nth-child(4){animation-delay:.15s}
-.np-bar:nth-child(5){animation-delay:.05s}
+.np-bar:nth-child(1){animation-delay:0s}.np-bar:nth-child(2){animation-delay:.1s}.np-bar:nth-child(3){animation-delay:.2s}.np-bar:nth-child(4){animation-delay:.15s}.np-bar:nth-child(5){animation-delay:.05s}
 @keyframes eq{from{height:4px}to{height:18px}}
-.np-listen{
-  font-family:var(--mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--white);text-decoration:none;padding:6px 12px;
-  border:1px solid rgba(224,26,46,.5);flex-shrink:0;
-  transition:background .2s;
-}
+.np-listen{font-family:var(--mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--white);text-decoration:none;padding:6px 12px;border:1px solid rgba(224,26,46,.5);flex-shrink:0;transition:background .2s;}
 .np-listen:hover{background:var(--red)}
 
-/* ── DIVIDER ── */
-.hr{
-  height:1px;
-  background:linear-gradient(to right,transparent,var(--red),var(--blue2),transparent);
-  opacity:.3;margin:0;
-}
+/* DIVIDER */
+.hr{height:1px;background:linear-gradient(to right,transparent,var(--red),var(--blue2),transparent);opacity:.3;margin:0;}
 
-/* ── SECTIONS ── */
+/* SECTIONS */
 .section{padding:90px 24px;max-width:1100px;margin:0 auto}
-.sec-label{
-  font-family:var(--mono);font-size:9px;letter-spacing:.3em;
-  text-transform:uppercase;margin-bottom:16px;
-}
-.sec-label.red{color:var(--red2)}
-.sec-label.blue{color:var(--blue2)}
-.sec-title{
-  font-family:var(--bebas);font-size:clamp(40px,7vw,80px);
-  letter-spacing:.04em;line-height:.9;margin-bottom:0;
-}
-.sec-title .red{
-  background:linear-gradient(90deg,var(--red2),#ff6688);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.sec-title .blue{
-  background:linear-gradient(90deg,var(--blue2),#6688ff);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
+.sec-label{font-family:var(--mono);font-size:9px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:16px;}
+.sec-label.red{color:var(--red2)}.sec-label.blue{color:var(--blue2)}
+.sec-title{font-family:var(--bebas);font-size:clamp(40px,7vw,80px);letter-spacing:.04em;line-height:.9;margin-bottom:0;}
+.sec-title .red{background:linear-gradient(90deg,var(--red2),#ff6688);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.sec-title .blue{background:linear-gradient(90deg,var(--blue2),#6688ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-/* ── RELEASES GRID ── */
+/* RELEASES GRID */
 .releases-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:48px}
 .release-card{position:relative;overflow:hidden;cursor:pointer;background:var(--faint)}
 .release-card.featured{grid-column:1;grid-row:1/3}
 .release-img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.75);transition:filter .4s,transform .5s}
 .release-card:hover .release-img{filter:brightness(1);transform:scale(1.04)}
-.release-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(6,4,10,.9) 0%,transparent 50%);
-  pointer-events:none;
-}
+.release-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,4,10,.9) 0%,transparent 50%);pointer-events:none;}
 .release-overlay.red-tint{background:linear-gradient(135deg,rgba(224,26,46,.15),transparent 50%),linear-gradient(to top,rgba(6,4,10,.9),transparent 50%)}
 .release-overlay.blue-tint{background:linear-gradient(135deg,rgba(26,58,224,.15),transparent 50%),linear-gradient(to top,rgba(6,4,10,.9),transparent 50%)}
 .release-info{position:absolute;bottom:0;left:0;right:0;padding:24px}
-.release-tag{
-  font-family:var(--mono);font-size:8px;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--red2);margin-bottom:6px;
-}
+.release-tag{font-family:var(--mono);font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--red2);margin-bottom:6px;}
 .release-name{font-family:var(--bebas);font-size:clamp(28px,4vw,48px);letter-spacing:.04em;line-height:1}
 .release-sub{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--muted);margin-top:4px}
-
 .release-card.featured .release-name{font-size:clamp(40px,6vw,72px)}
 .release-card.featured .release-img{aspect-ratio:1;min-height:400px}
-
-/* small cards need fixed height */
 .release-card:not(.featured){height:250px}
 .release-card:not(.featured) .release-img{height:100%}
 
-/* ── STREAM SECTION ── */
-.stream-section{
-  padding:60px 40px;
-  background:linear-gradient(135deg,rgba(224,26,46,.05) 0%,rgba(26,58,224,.05) 100%);
-  border-top:1px solid rgba(224,26,46,.15);
-  border-bottom:1px solid rgba(26,58,224,.15);
-  margin-top:2px;
-}
+/* STREAM SECTION */
+.stream-section{padding:60px 40px;background:linear-gradient(135deg,rgba(224,26,46,.05) 0%,rgba(26,58,224,.05) 100%);border-top:1px solid rgba(224,26,46,.15);border-bottom:1px solid rgba(26,58,224,.15);margin-top:2px;}
 .stream-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 .stream-cover-wrap{position:relative}
-.stream-cover{
-  width:100%;max-width:320px;display:block;
-  border:2px solid rgba(224,26,46,.4);
-  box-shadow:0 0 60px rgba(224,26,46,.25),0 0 60px rgba(26,58,224,.15);
-  animation:float 4s ease-in-out infinite;
-}
+.stream-cover{width:100%;max-width:320px;display:block;border:2px solid rgba(224,26,46,.4);box-shadow:0 0 60px rgba(224,26,46,.25),0 0 60px rgba(26,58,224,.15);animation:float 4s ease-in-out infinite;}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.stream-glow{
-  position:absolute;inset:-20px;
-  background:radial-gradient(ellipse,rgba(224,26,46,.15) 0%,transparent 70%);
-  pointer-events:none;z-index:-1;
-}
-
-.stream-right{}
-.stream-song-title{
-  font-family:var(--bebas);font-size:clamp(48px,8vw,80px);letter-spacing:.04em;line-height:.9;
-  background:linear-gradient(90deg,var(--white) 30%,var(--red2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  margin-bottom:4px;
-}
+.stream-glow{position:absolute;inset:-20px;background:radial-gradient(ellipse,rgba(224,26,46,.15) 0%,transparent 70%);pointer-events:none;z-index:-1;}
+.stream-song-title{font-family:var(--bebas);font-size:clamp(48px,8vw,80px);letter-spacing:.04em;line-height:.9;background:linear-gradient(90deg,var(--white) 30%,var(--red2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
 .stream-artist{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--blue2);text-transform:uppercase;margin-bottom:8px}
 .stream-credits{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--muted);margin-bottom:8px}
-.stream-desc{
-  font-family:var(--mont);font-size:14px;font-weight:300;
-  line-height:1.7;color:rgba(208,200,216,.7);margin-bottom:32px;
-}
-
-/* waveform */
+.stream-desc{font-family:var(--mont);font-size:14px;font-weight:300;line-height:1.7;color:rgba(208,200,216,.7);margin-bottom:32px;}
 .waveform{display:flex;align-items:center;gap:3px;height:36px;margin-bottom:24px}
 .wb{width:3px;border-radius:2px;animation:wv 1.2s ease-in-out infinite alternate}
-.wb.r{background:var(--red2)}
-.wb.b{background:var(--blue2)}
+.wb.r{background:var(--red2)}.wb.b{background:var(--blue2)}
 @keyframes wv{from{height:4px;opacity:.3}to{height:28px;opacity:1}}
 
+/* PLATFORM BUTTONS */
 .platform-list{display:flex;flex-direction:column;gap:8px}
-.pf-btn{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 16px;
-  border:1px solid rgba(255,255,255,.07);
-  background:rgba(255,255,255,.02);
-  text-decoration:none;color:var(--white);
-  transition:border-color .2s,background .2s,transform .15s;
-  position:relative;overflow:hidden;
-}
-.pf-btn::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
-  transform:scaleY(0);transition:transform .25s;transform-origin:center;
-}
-.pf-btn.red-platform::before{background:var(--red2)}
-.pf-btn.blue-platform::before{background:var(--blue2)}
+.pf-btn{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);text-decoration:none;color:var(--white);transition:border-color .2s,background .2s,transform .15s;position:relative;overflow:hidden;}
+.pf-btn::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;transform:scaleY(0);transition:transform .25s;transform-origin:center;}
+.pf-btn.red-platform::before{background:var(--red2)}.pf-btn.blue-platform::before{background:var(--blue2)}
 .pf-btn:hover{background:rgba(255,255,255,.05);transform:translateX(4px)}
-.pf-btn.red-platform:hover{border-color:rgba(224,26,46,.35)}
-.pf-btn.blue-platform:hover{border-color:rgba(26,58,224,.35)}
+.pf-btn.red-platform:hover{border-color:rgba(224,26,46,.35)}.pf-btn.blue-platform:hover{border-color:rgba(26,58,224,.35)}
 .pf-btn:hover::before{transform:scaleY(1)}
 .pf-left{display:flex;align-items:center;gap:12px}
 .pf-icon{width:20px;height:20px;fill:var(--muted);transition:fill .2s}
-.pf-btn.red-platform:hover .pf-icon{fill:var(--red2)}
-.pf-btn.blue-platform:hover .pf-icon{fill:var(--blue2)}
+.pf-btn.red-platform:hover .pf-icon{fill:var(--red2)}.pf-btn.blue-platform:hover .pf-icon{fill:var(--blue2)}
 .pf-name{font-family:var(--mont);font-size:14px;font-weight:400}
 .pf-arrow{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--muted);transition:color .2s}
-.pf-btn.red-platform:hover .pf-arrow{color:var(--red2)}
-.pf-btn.blue-platform:hover .pf-arrow{color:var(--blue2)}
+.pf-btn.red-platform:hover .pf-arrow{color:var(--red2)}.pf-btn.blue-platform:hover .pf-arrow{color:var(--blue2)}
 
-/* ── GALLERY ── */
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:3px;margin-top:48px;
-}
-.gallery-item{
-  aspect-ratio:1;overflow:hidden;position:relative;cursor:pointer;
-  background:var(--faint);
-}
-.gallery-img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .4s,filter .3s;filter:brightness(.7) saturate(.8);
-}
+/* GALLERY */
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:48px;}
+.gallery-item{aspect-ratio:1;overflow:hidden;position:relative;cursor:pointer;background:var(--faint);}
+.gallery-img{width:100%;height:100%;object-fit:cover;transition:transform .4s,filter .3s;filter:brightness(.7) saturate(.8);}
 .gallery-item:hover .gallery-img{transform:scale(1.08);filter:brightness(1) saturate(1.2)}
-.gallery-veil{
-  position:absolute;inset:0;opacity:0;transition:opacity .3s;
-  display:flex;align-items:center;justify-content:center;
-}
-.gallery-item:nth-child(odd) .gallery-veil{background:rgba(224,26,46,.3)}
-.gallery-item:nth-child(even) .gallery-veil{background:rgba(26,58,224,.3)}
+.gallery-veil{position:absolute;inset:0;opacity:0;transition:opacity .3s;display:flex;align-items:center;justify-content:center;}
+.gallery-item:nth-child(odd) .gallery-veil{background:rgba(224,26,46,.3)}.gallery-item:nth-child(even) .gallery-veil{background:rgba(26,58,224,.3)}
 .gallery-item:hover .gallery-veil{opacity:1}
 .gallery-veil-text{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:white;text-transform:uppercase}
-.gallery-placeholder{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-}
 
-/* ── ABOUT ── */
+/* ABOUT */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:60px}
-.about-photo{
-  position:relative;
-}
-.about-img{
-  width:100%;display:block;
-  filter:brightness(.85) saturate(1.1);
-  border:1px solid rgba(255,255,255,.08);
-}
-.about-photo-frame{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(224,26,46,.12) 0%,transparent 40%,rgba(26,58,224,.12) 100%);
-  pointer-events:none;
-}
-.about-quote{
-  font-family:var(--mont);font-size:20px;font-style:italic;font-weight:300;
-  line-height:1.6;
-  border-left:2px solid var(--red2);
-  padding-left:20px;margin-bottom:28px;
-  background:linear-gradient(90deg,var(--white),var(--off));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.about-text{
-  font-family:var(--mont);font-size:14px;font-weight:300;
-  line-height:1.8;color:rgba(208,200,216,.7);margin-bottom:20px;
-}
+.about-photo{position:relative}
+.about-img{width:100%;display:block;filter:brightness(.85) saturate(1.1);border:1px solid rgba(255,255,255,.08);}
+.about-photo-frame{position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,26,46,.12) 0%,transparent 40%,rgba(26,58,224,.12) 100%);pointer-events:none;}
+.about-quote{font-family:var(--mont);font-size:20px;font-style:italic;font-weight:300;line-height:1.6;border-left:2px solid var(--red2);padding-left:20px;margin-bottom:28px;background:linear-gradient(90deg,var(--white),var(--off));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.about-text{font-family:var(--mont);font-size:14px;font-weight:300;line-height:1.8;color:rgba(208,200,216,.7);margin-bottom:20px;}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
-.tag-chip{
-  font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;
-  padding:5px 12px;border:1px solid rgba(255,255,255,.1);color:var(--muted);
-  transition:border-color .2s,color .2s;
-}
+.tag-chip{font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(255,255,255,.1);color:var(--muted);transition:border-color .2s,color .2s;}
 .tag-chip:hover{border-color:var(--red2);color:var(--red2)}
 
-/* ── CONNECT ── */
-.connect-section{
-  padding:100px 24px;text-align:center;
-  background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(60,10,80,.4) 0%,var(--bg) 70%);
-  position:relative;overflow:hidden;
-}
-.connect-glow-r{
-  position:absolute;left:-100px;top:50%;transform:translateY(-50%);
-  width:300px;height:300px;border-radius:50%;
-  background:rgba(224,26,46,.12);filter:blur(80px);pointer-events:none;
-}
-.connect-glow-b{
-  position:absolute;right:-100px;top:50%;transform:translateY(-50%);
-  width:300px;height:300px;border-radius:50%;
-  background:rgba(26,58,224,.12);filter:blur(80px);pointer-events:none;
-}
+/* CONNECT */
+.connect-section{padding:100px 24px;text-align:center;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(60,10,80,.4) 0%,var(--bg) 70%);position:relative;overflow:hidden;}
+.connect-glow-r{position:absolute;left:-100px;top:50%;transform:translateY(-50%);width:300px;height:300px;border-radius:50%;background:rgba(224,26,46,.12);filter:blur(80px);pointer-events:none;}
+.connect-glow-b{position:absolute;right:-100px;top:50%;transform:translateY(-50%);width:300px;height:300px;border-radius:50%;background:rgba(26,58,224,.12);filter:blur(80px);pointer-events:none;}
 .connect-inner{position:relative;z-index:2;max-width:600px;margin:0 auto}
-.connect-title{
-  font-family:var(--bebas);font-size:clamp(48px,9vw,96px);letter-spacing:.04em;
-  line-height:.9;margin-bottom:20px;
-}
-.connect-sub{
-  font-family:var(--mont);font-size:14px;font-weight:300;
-  color:var(--muted);margin-bottom:40px;line-height:1.7;
-}
+.connect-title{font-family:var(--bebas);font-size:clamp(48px,9vw,96px);letter-spacing:.04em;line-height:.9;margin-bottom:20px;}
+.connect-sub{font-family:var(--mont);font-size:14px;font-weight:300;color:var(--muted);margin-bottom:40px;line-height:1.7;}
 .social-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.soc-btn{
-  display:flex;align-items:center;gap:10px;
-  padding:14px 28px;border:1px solid rgba(255,255,255,.12);
-  text-decoration:none;color:var(--white);
-  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  transition:border-color .2s,box-shadow .2s,transform .15s;
-}
+.soc-btn{display:flex;align-items:center;gap:10px;padding:14px 28px;border:1px solid rgba(255,255,255,.12);text-decoration:none;color:var(--white);font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;transition:border-color .2s,box-shadow .2s,transform .15s;}
 .soc-btn.ig:hover{border-color:var(--red2);box-shadow:0 0 20px var(--redglow);transform:translateY(-2px)}
 .soc-btn.yt:hover{border-color:var(--red2);box-shadow:0 0 20px var(--redglow);transform:translateY(-2px)}
 .soc-btn.reel:hover{border-color:var(--blue2);box-shadow:0 0 20px var(--blueglow);transform:translateY(-2px)}
 .soc-btn svg{width:16px;height:16px;fill:currentColor}
-.handle{
-  margin-top:36px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;
-  background:linear-gradient(90deg,var(--red2),var(--blue2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
+.handle{margin-top:36px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;background:linear-gradient(90deg,var(--red2),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-/* ── FOOTER ── */
-footer{
-  padding:32px 40px;
-  border-top:1px solid rgba(255,255,255,.06);
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
-}
-.footer-logo{
-  font-family:var(--bebas);font-size:20px;letter-spacing:.1em;
-  background:linear-gradient(90deg,var(--red2),var(--blue2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
+/* FOOTER */
+footer{padding:32px 40px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-logo{font-family:var(--bebas);font-size:20px;letter-spacing:.1em;background:linear-gradient(90deg,var(--red2),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .footer-copy{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:var(--muted)}
 .footer-tag{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:rgba(224,26,46,.6)}
 
-/* ── FADE IN ── */
+/* FADE IN */
 .fi{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
 .fi.vis{opacity:1;transform:translateY(0)}
 
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media(max-width:768px){
   nav{padding:14px 20px}
   .nav-links li:nth-child(n+3){display:none}
@@ -471,7 +212,7 @@ footer{
   </ul>
 </nav>
 
-<!-- NOW PLAYING BAR -->
+<!-- NOW PLAYING BAR — Bayaside -->
 <div class="now-playing-bar">
   <img src="bayaside_cover.png" alt="Bayaside" class="np-cover">
   <div class="np-info">
@@ -486,7 +227,7 @@ footer{
     <div class="np-bar" style="height:14px"></div>
     <div class="np-bar" style="height:10px"></div>
   </div>
-  <a class="np-listen" href="https://open.spotify.com/search/AKIRA%20KIN%20Bayaside" target="_blank">Listen ↗</a>
+  <a class="np-listen" href="https://akiraandkin.github.io/Bayaside-Streaming/#stream" target="_blank">Listen ↗</a>
 </div>
 
 <!-- HERO -->
@@ -519,10 +260,8 @@ footer{
 <div class="section fi" id="releases">
   <div class="sec-label red">Discography</div>
   <h2 class="sec-title">THE <span class="red">RELEASES</span></h2>
-
   <div class="releases-grid">
-    <!-- Featured: Manasu -->
-    <div class="release-card featured" onclick="document.getElementById('stream').scrollIntoView({behavior:'smooth'})">
+    <div class="release-card featured" onclick="document.getElementById('manasu-stream').scrollIntoView({behavior:'smooth'})">
       <img src="manasu_cover.png" alt="MANASU" class="release-img" style="aspect-ratio:1;width:100%">
       <div class="release-overlay red-tint"></div>
       <div class="release-info">
@@ -531,9 +270,7 @@ footer{
         <div class="release-sub">AKIRA&KIN · KRSWAROOP</div>
       </div>
     </div>
-
-    <!-- Bayaside -->
-    <div class="release-card" onclick="window.open('https://open.spotify.com/search/AKIRA%20KIN%20Bayaside','_blank')">
+    <div class="release-card" onclick="document.getElementById('stream').scrollIntoView({behavior:'smooth'})">
       <img src="bayaside_cover.png" alt="Bayaside" class="release-img">
       <div class="release-overlay blue-tint"></div>
       <div class="release-info">
@@ -542,8 +279,6 @@ footer{
         <div class="release-sub">AKIRA&KIN · KRSWAROOP · ANOOP K R</div>
       </div>
     </div>
-
-    <!-- design4 -->
     <div class="release-card" onclick="window.open('https://www.instagram.com/akiraandkin','_blank')">
       <img src="design4.png" alt="AKIRA&KIN Release" class="release-img">
       <div class="release-overlay red-tint"></div>
@@ -558,7 +293,9 @@ footer{
 
 <div class="hr"></div>
 
-<!-- STREAM BAYASIDE -->
+<!-- ══════════════════════════════════════════ -->
+<!-- STREAM — BAYASIDE                         -->
+<!-- ══════════════════════════════════════════ -->
 <div class="stream-section" id="stream">
   <div class="stream-inner fi">
     <div class="stream-cover-wrap">
@@ -571,7 +308,6 @@ footer{
       <div class="stream-artist">AKIRA&KIN</div>
       <div class="stream-credits">KRSWAROOP · ANOOP K R · Dec 2024</div>
       <p class="stream-desc">A fusion of contemporary beats and cultural soul. Mastered for 3D Dolby — plug in your headphones and feel the music like never before.</p>
-
       <div class="waveform">
         <div class="wb r" style="animation-delay:0s"></div>
         <div class="wb b" style="animation-delay:.08s"></div>
@@ -586,44 +322,57 @@ footer{
         <div class="wb r" style="animation-delay:.2s"></div>
         <div class="wb b" style="animation-delay:.28s"></div>
       </div>
-
       <div class="platform-list">
-        <a class="pf-btn red-platform" href="https://open.spotify.com/search/AKIRA%20KIN" target="_blank">
+        <!-- Bayaside Streaming Page -->
+        <a class="pf-btn red-platform" href="https://akiraandkin.github.io/Bayaside-Streaming/#stream" target="_blank">
+          <div class="pf-left">
+            <svg class="pf-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+            <span class="pf-name">Stream Bayaside — All Platforms</span>
+          </div>
+          <span class="pf-arrow">Listen ↗</span>
+        </a>
+        <!-- Spotify -->
+        <a class="pf-btn red-platform" href="https://open.spotify.com/artist/1N8yyotxmF6Qv8SIL4C0Oz" target="_blank">
           <div class="pf-left">
             <svg class="pf-icon" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
             <span class="pf-name">Spotify</span>
           </div>
           <span class="pf-arrow">Stream ↗</span>
         </a>
-        <a class="pf-btn blue-platform" href="https://music.apple.com/search?term=AKIRA+KIN" target="_blank">
+        <!-- Apple Music -->
+        <a class="pf-btn blue-platform" href="https://itunes.apple.com/us/artist/krswaroop/6772473498" target="_blank">
           <div class="pf-left">
             <svg class="pf-icon" viewBox="0 0 24 24"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.048-2.31-2.18-3.043a6.303 6.303 0 0 0-1.862-.81c-.602-.15-1.22-.234-1.843-.27-.144-.009-.289-.014-.432-.014H6.562c-.142 0-.285.005-.427.014-.623.036-1.24.12-1.842.27a6.3 6.3 0 0 0-1.862.81C1.298 1.624.567 2.624.25 3.934a9.23 9.23 0 0 0-.24 2.19C.005 6.29 0 6.456 0 6.623v10.754c0 .167.005.333.01.499a9.23 9.23 0 0 0 .24 2.19c.317 1.31 1.048 2.31 2.18 3.043a6.303 6.303 0 0 0 1.862.81c.602.15 1.22.234 1.843.27.142.009.285.014.427.014h10.87c.143 0 .286-.005.429-.014.623-.036 1.24-.12 1.842-.27a6.3 6.3 0 0 0 1.862-.81c1.132-.733 1.863-1.733 2.18-3.043a9.23 9.23 0 0 0 .24-2.19c.006-.166.01-.332.01-.499V6.623c0-.167-.004-.333-.01-.499zm-6.97 6.912l-5.998 3.666a.607.607 0 0 1-.914-.524V7.822a.607.607 0 0 1 .914-.524l5.998 3.666a.607.607 0 0 1 0 1.072z"/></svg>
             <span class="pf-name">Apple Music</span>
           </div>
           <span class="pf-arrow">Stream ↗</span>
         </a>
-        <a class="pf-btn red-platform" href="https://music.youtube.com/search?q=AKIRA+KIN" target="_blank">
+        <!-- YouTube Music -->
+        <a class="pf-btn red-platform" href="https://music.youtube.com/search?q=AKIRA+KIN+Bayaside" target="_blank">
           <div class="pf-left">
             <svg class="pf-icon" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             <span class="pf-name">YouTube Music</span>
           </div>
           <span class="pf-arrow">Stream ↗</span>
         </a>
-        <a class="pf-btn blue-platform" href="https://music.amazon.com/search/AKIRA+KIN" target="_blank">
+        <!-- Amazon Music -->
+        <a class="pf-btn blue-platform" href="https://music.amazon.com/search/AKIRA+KIN+Bayaside" target="_blank">
           <div class="pf-left">
             <svg class="pf-icon" viewBox="0 0 24 24"><path d="M13.958 10.09c0 1.232.029 2.256-.59 3.351-.502.891-1.301 1.438-2.186 1.438-1.213 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.698-3.182v.685zm3.186 7.705a.66.66 0 0 1-.76.075c-1.068-.888-1.26-1.299-1.843-2.146-1.761 1.796-3.009 2.334-5.296 2.334-2.704 0-4.806-1.669-4.806-5.007 0-2.608 1.414-4.385 3.428-5.253 1.746-.772 4.184-.909 6.048-1.121v-.418c0-.769.06-1.677-.392-2.338-.395-.593-1.148-.838-1.813-.838-1.231 0-2.33.631-2.599 1.94-.055.293-.271.581-.566.596l-3.163-.341c-.266-.06-.562-.274-.486-.682C5.875 2.672 8.503 2 10.86 2c1.201 0 2.769.319 3.718 1.228 1.201 1.12 1.086 2.616 1.086 4.245v3.847c0 1.157.48 1.665.931 2.288.161.226.196.497-.009.665l-2.42 2.073-.022-.051zM21.485 19.035c-2.657 2.105-6.508 3.226-9.824 3.226-4.649 0-8.831-1.72-11.993-4.58-.249-.225-.027-.532.272-.357 3.414 1.985 7.63 3.18 11.985 3.18 2.939 0 6.169-.608 9.144-1.869.448-.191.824.293.416.4zm1.179-1.343c-.339-.436-2.245-.207-3.101-.104-.261.031-.301-.196-.066-.362 1.519-1.067 4.012-.759 4.304-.402.293.358-.077 2.852-1.503 4.041-.22.184-.429.086-.331-.157.321-.8 1.036-2.58.697-3.016z"/></svg>
             <span class="pf-name">Amazon Music</span>
           </div>
           <span class="pf-arrow">Stream ↗</span>
         </a>
-        <a class="pf-btn red-platform" href="https://www.deezer.com/search/AKIRA%20KIN" target="_blank">
+        <!-- Deezer -->
+        <a class="pf-btn red-platform" href="https://www.deezer.com/search/AKIRA%20KIN%20Bayaside" target="_blank">
           <div class="pf-left">
             <svg class="pf-icon" viewBox="0 0 24 24"><path d="M18.81 11.283H24v1.422h-5.19zm0 3.251H24v1.42h-5.19zm0-6.502H24v1.421h-5.19zm0-3.25H24v1.42h-5.19zM0 18.784h5.19v1.42H0zm6.917 0h5.19v1.42H6.917zm6.917 0h5.19v1.42h-5.19zm0-3.25h5.19v1.42h-5.19zm0-3.252h5.19v1.422h-5.19zm0-3.25h5.19v1.421h-5.19zm-6.917 6.502h5.19v1.42H6.917zm0-3.252h5.19v1.422H6.917z"/></svg>
             <span class="pf-name">Deezer</span>
           </div>
           <span class="pf-arrow">Stream ↗</span>
         </a>
-        <a class="pf-btn blue-platform" href="https://tidal.com/search?q=AKIRA+KIN" target="_blank">
+        <!-- Tidal -->
+        <a class="pf-btn blue-platform" href="https://tidal.com/search?q=AKIRA+KIN+Bayaside" target="_blank">
           <div class="pf-left">
             <svg class="pf-icon" viewBox="0 0 24 24"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004zM8.008 16.004l-4.004-4.004L0 16.004l4.004 4.004zm4.004 0l4.004 4.004 4.004-4.004-4.004-4.004zm8.008-8.008l-4.004 4.004 4.004 4.004 4.004-4.004z"/></svg>
             <span class="pf-name">Tidal</span>
@@ -635,9 +384,11 @@ footer{
   </div>
 </div>
 
-<!-- MANASU -->
-<div class="stream-section fi" style="margin-top:0;border-top:none;background:linear-gradient(135deg,rgba(26,58,224,.05),rgba(224,26,46,.05))">
-  <div class="stream-inner" style="direction:ltr">
+<!-- ══════════════════════════════════════════ -->
+<!-- STREAM — MANASU                           -->
+<!-- ══════════════════════════════════════════ -->
+<div class="stream-section fi" id="manasu-stream" style="margin-top:0;border-top:none;background:linear-gradient(135deg,rgba(26,58,224,.05),rgba(224,26,46,.05))">
+  <div class="stream-inner">
     <div class="stream-right" style="order:1">
       <div class="sec-label blue" style="margin-bottom:10px">● New Release · 2025</div>
       <div class="stream-song-title" style="background:linear-gradient(90deg,var(--blue2),var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent">MANASU</div>
@@ -656,8 +407,55 @@ footer{
         <div class="wb b" style="animation-delay:.25s"></div>
         <div class="wb r" style="animation-delay:.05s"></div>
       </div>
-      <div class="hero-btns" style="justify-content:flex-start;margin-top:4px">
-        <a class="btn-blue" href="https://open.spotify.com/search/AKIRA%20KIN%20Manasu" target="_blank">▶ Stream MANASU</a>
+      <div class="platform-list">
+        <!-- Spotify — real artist link -->
+        <a class="pf-btn blue-platform" href="https://open.spotify.com/artist/1N8yyotxmF6Qv8SIL4C0Oz" target="_blank">
+          <div class="pf-left">
+            <svg class="pf-icon" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            <span class="pf-name">Spotify</span>
+          </div>
+          <span class="pf-arrow">Stream ↗</span>
+        </a>
+        <!-- Apple Music — real artist link -->
+        <a class="pf-btn red-platform" href="https://itunes.apple.com/us/artist/krswaroop/6772473498" target="_blank">
+          <div class="pf-left">
+            <svg class="pf-icon" viewBox="0 0 24 24"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.048-2.31-2.18-3.043a6.303 6.303 0 0 0-1.862-.81c-.602-.15-1.22-.234-1.843-.27-.144-.009-.289-.014-.432-.014H6.562c-.142 0-.285.005-.427.014-.623.036-1.24.12-1.842.27a6.3 6.3 0 0 0-1.862.81C1.298 1.624.567 2.624.25 3.934a9.23 9.23 0 0 0-.24 2.19C.005 6.29 0 6.456 0 6.623v10.754c0 .167.005.333.01.499a9.23 9.23 0 0 0 .24 2.19c.317 1.31 1.048 2.31 2.18 3.043a6.303 6.303 0 0 0 1.862.81c.602.15 1.22.234 1.843.27.142.009.285.014.427.014h10.87c.143 0 .286-.005.429-.014.623-.036 1.24-.12 1.842-.27a6.3 6.3 0 0 0 1.862-.81c1.132-.733 1.863-1.733 2.18-3.043a9.23 9.23 0 0 0 .24-2.19c.006-.166.01-.332.01-.499V6.623c0-.167-.004-.333-.01-.499zm-6.97 6.912l-5.998 3.666a.607.607 0 0 1-.914-.524V7.822a.607.607 0 0 1 .914-.524l5.998 3.666a.607.607 0 0 1 0 1.072z"/></svg>
+            <span class="pf-name">Apple Music</span>
+          </div>
+          <span class="pf-arrow">Stream ↗</span>
+        </a>
+        <!-- YouTube Music -->
+        <a class="pf-btn blue-platform" href="https://music.youtube.com/search?q=AKIRA+KIN+Manasu" target="_blank">
+          <div class="pf-left">
+            <svg class="pf-icon" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span class="pf-name">YouTube Music</span>
+          </div>
+          <span class="pf-arrow">Stream ↗</span>
+        </a>
+        <!-- Amazon Music -->
+        <a class="pf-btn red-platform" href="https://music.amazon.com/search/AKIRA+KIN+Manasu" target="_blank">
+          <div class="pf-left">
+            <svg class="pf-icon" viewBox="0 0 24 24"><path d="M13.958 10.09c0 1.232.029 2.256-.59 3.351-.502.891-1.301 1.438-2.186 1.438-1.213 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.698-3.182v.685zm3.186 7.705a.66.66 0 0 1-.76.075c-1.068-.888-1.26-1.299-1.843-2.146-1.761 1.796-3.009 2.334-5.296 2.334-2.704 0-4.806-1.669-4.806-5.007 0-2.608 1.414-4.385 3.428-5.253 1.746-.772 4.184-.909 6.048-1.121v-.418c0-.769.06-1.677-.392-2.338-.395-.593-1.148-.838-1.813-.838-1.231 0-2.33.631-2.599 1.94-.055.293-.271.581-.566.596l-3.163-.341c-.266-.06-.562-.274-.486-.682C5.875 2.672 8.503 2 10.86 2c1.201 0 2.769.319 3.718 1.228 1.201 1.12 1.086 2.616 1.086 4.245v3.847c0 1.157.48 1.665.931 2.288.161.226.196.497-.009.665l-2.42 2.073-.022-.051zM21.485 19.035c-2.657 2.105-6.508 3.226-9.824 3.226-4.649 0-8.831-1.72-11.993-4.58-.249-.225-.027-.532.272-.357 3.414 1.985 7.63 3.18 11.985 3.18 2.939 0 6.169-.608 9.144-1.869.448-.191.824.293.416.4zm1.179-1.343c-.339-.436-2.245-.207-3.101-.104-.261.031-.301-.196-.066-.362 1.519-1.067 4.012-.759 4.304-.402.293.358-.077 2.852-1.503 4.041-.22.184-.429.086-.331-.157.321-.8 1.036-2.58.697-3.016z"/></svg>
+            <span class="pf-name">Amazon Music</span>
+          </div>
+          <span class="pf-arrow">Stream ↗</span>
+        </a>
+        <!-- Deezer -->
+        <a class="pf-btn blue-platform" href="https://www.deezer.com/search/AKIRA%20KIN%20Manasu" target="_blank">
+          <div class="pf-left">
+            <svg class="pf-icon" viewBox="0 0 24 24"><path d="M18.81 11.283H24v1.422h-5.19zm0 3.251H24v1.42h-5.19zm0-6.502H24v1.421h-5.19zm0-3.25H24v1.42h-5.19zM0 18.784h5.19v1.42H0zm6.917 0h5.19v1.42H6.917zm6.917 0h5.19v1.42h-5.19zm0-3.25h5.19v1.42h-5.19zm0-3.252h5.19v1.422h-5.19zm0-3.25h5.19v1.421h-5.19zm-6.917 6.502h5.19v1.42H6.917zm0-3.252h5.19v1.422H6.917z"/></svg>
+            <span class="pf-name">Deezer</span>
+          </div>
+          <span class="pf-arrow">Stream ↗</span>
+        </a>
+        <!-- Tidal -->
+        <a class="pf-btn red-platform" href="https://tidal.com/search?q=AKIRA+KIN+Manasu" target="_blank">
+          <div class="pf-left">
+            <svg class="pf-icon" viewBox="0 0 24 24"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004zM8.008 16.004l-4.004-4.004L0 16.004l4.004 4.004zm4.004 0l4.004 4.004 4.004-4.004-4.004-4.004zm8.008-8.008l-4.004 4.004 4.004 4.004 4.004-4.004z"/></svg>
+            <span class="pf-name">Tidal</span>
+          </div>
+          <span class="pf-arrow">Stream ↗</span>
+        </a>
       </div>
     </div>
     <div class="stream-cover-wrap" style="order:2">
@@ -673,8 +471,7 @@ footer{
 <div class="section fi" id="gallery">
   <div class="sec-label blue">@akiraandkin</div>
   <h2 class="sec-title">THE <span class="blue">GALLERY</span></h2>
-  <div class="gallery-grid" id="igGrid">
-    <!-- Real uploaded images -->
+  <div class="gallery-grid">
     <div class="gallery-item" onclick="window.open('https://www.instagram.com/akiraandkin','_blank')">
       <img src="manasu_cover.png" alt="MANASU" class="gallery-img">
       <div class="gallery-veil"><span class="gallery-veil-text">▶ Reel</span></div>
@@ -772,30 +569,17 @@ footer{
 </footer>
 
 <script>
-// ── LIGHT STREAKS ──
 (function(){
   const c=document.getElementById('streaks');
-  const N=28;
-  for(let i=0;i<N;i++){
+  for(let i=0;i<28;i++){
     const s=document.createElement('div');
     s.className='streak';
     const isRed=Math.random()>.5;
-    const h=Math.random()*60+20;
-    s.style.cssText=`
-      left:${Math.random()*100}%;
-      height:${h}px;
-      background:${isRed?'rgba(224,26,46,':'rgba(26,58,224,'}${(Math.random()*.4+.2)});
-      animation-duration:${Math.random()*4+2}s;
-      animation-delay:-${Math.random()*6}s;
-    `;
+    s.style.cssText=`left:${Math.random()*100}%;height:${Math.random()*60+20}px;background:${isRed?'rgba(224,26,46,':'rgba(26,58,224,'}${(Math.random()*.4+.2)});animation-duration:${Math.random()*4+2}s;animation-delay:-${Math.random()*6}s;`;
     c.appendChild(s);
   }
 })();
-
-// ── FADE IN OBSERVER ──
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});
-},{threshold:.08});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:.08});
 document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
 </script>
 </body>
